@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search For Students By ID</h2>
+
+<div class="col-md-10">
+    <input type="text" id="StudentId" size="5" />
+    <input type="submit" name="SearchButton" value="Search" />
+</div>
+<br />
+<div id="divProcessing">
+    <p>Processing, Please Wait!  <img src="../../Content/ajax-loader.gif" height="50"></p>
+</div>
+<div id="divResult"></div>
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#divProcessing").hide();
+            $('#SearchButton').click(function () {
+                search();
+            });
+        });
+
+        function search() {
+            $("#divResult").empty();
+            $("#divProcessing").show();
+            var studentId = $("#StudentId").val();
+            var url = "../API/Students/" + studentId;
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function (resp) {
+                    $("#divProcessing").hide();
+                    $("<h3>Results</h3>").appendTo("#divResult");
+                    $("#divResult").append("<p>Name: " + resp.Name + "<br/>Surname: " + resp.Surname + "<br/>PPS: " + resp.PPS + "<br/>" + "<br/>Phone: " + resp.Phone + "<br/>Email: " + resp.Email + "<br/>City: " + resp.City + "<br/>");
+                    $("#divResult").append("Course:<br/>");
+                    for (var i = 0; i < resp.Courses.lenght; i++) {
+                        $("#divResult").append(resp.Courses[i].Name + " " + resp.Courses[i].Year + "<br/>");
+                    }
+                    $("#divResult").append("Module:<br/>");
+                    for (var i = 0; i < resp.Modules.lenght; i++) {
+                        $("#divResult").append(resp.Modules[i].Name + " " + resp.Modules[i].Lecturer + "<br/>");
+                    }
+
+
+                    $("#divResult").append("</p>");
+                }
+            })
+        }
+
+    </script>
+
+
+
+}

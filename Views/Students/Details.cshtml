@@ -1,0 +1,97 @@
+﻿@model CollegeSystem.Models.StudentViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.firstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.firstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.PPSNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.PPSNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.City)
+        </dd>
+
+    </dl>
+</div>
+<table>
+    <tr>
+        <th>
+            Course
+        </th>
+    </tr>
+    @foreach (var item in Model.SelectedCourses)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => Model.AllCourses.First(c => c.Value == item.ToString()).Text)
+            </td>
+        </tr>
+
+    }
+</table>
+<table>
+    <tr>
+        <th>
+            Module
+        </th>
+    </tr>
+    @foreach (var item in Model.SelectedModules)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => Model.AllModules.First(m => m.Value == item.ToString()).Text)
+            </td>
+        </tr>
+
+    }
+</table><p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Student.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
